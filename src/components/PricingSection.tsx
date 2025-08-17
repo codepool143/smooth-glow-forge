@@ -76,7 +76,7 @@ const pricingPlans = [
 
 const PricingSection = () => {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
@@ -97,10 +97,10 @@ const PricingSection = () => {
           {pricingPlans.map((plan, index) => (
             <Card 
               key={plan.name}
-              className={`relative card-gradient border-border/50 p-8 hover:scale-105 transition-all duration-300 hover:shadow-2xl animate-scale-in ${
+              className={`relative card-gradient border-border/50 p-8 hover-lift hover-tilt animate-bounce-in group cursor-pointer overflow-hidden ${
                 plan.popular ? 'ring-2 ring-primary/50 scale-105' : ''
               }`}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              style={{ animationDelay: `${index * 0.2}s` }}
             >
               {/* Popular badge */}
               {plan.popular && (
@@ -112,8 +112,8 @@ const PricingSection = () => {
               )}
 
               {/* Icon */}
-              <div className={`w-16 h-16 ${plan.bgColor} rounded-2xl flex items-center justify-center mb-6`}>
-                <plan.icon className={`w-8 h-8 ${plan.color}`} />
+              <div className={`w-16 h-16 ${plan.bgColor} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500`}>
+                <plan.icon className={`w-8 h-8 ${plan.color} group-hover:scale-110 transition-all duration-300`} />
               </div>
 
               {/* Plan details */}
@@ -135,13 +135,21 @@ const PricingSection = () => {
               {/* Features */}
               <div className="space-y-3 mb-8">
                 {plan.features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-start gap-3">
-                    <Check className={`w-5 h-5 ${plan.color} mt-0.5 flex-shrink-0`} />
-                    <span className="text-sm">{feature}</span>
+                  <div 
+                    key={featureIndex} 
+                    className="flex items-start gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0"
+                    style={{ transitionDelay: `${featureIndex * 0.1}s` }}
+                  >
+                    <Check className={`w-5 h-5 ${plan.color} mt-0.5 flex-shrink-0 animate-pulse`} />
+                    <span className="text-sm group-hover:text-foreground transition-colors">{feature}</span>
                   </div>
                 ))}
                 {plan.limitations.map((limitation, limitIndex) => (
-                  <div key={limitIndex} className="flex items-start gap-3 opacity-60">
+                  <div 
+                    key={limitIndex} 
+                    className="flex items-start gap-3 opacity-60 group-hover:opacity-80 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0"
+                    style={{ transitionDelay: `${(plan.features.length + limitIndex) * 0.1}s` }}
+                  >
                     <div className="w-5 h-5 mt-0.5 flex-shrink-0 flex items-center justify-center">
                       <div className="w-2 h-2 rounded-full bg-muted-foreground"></div>
                     </div>
@@ -152,7 +160,7 @@ const PricingSection = () => {
 
               {/* CTA button */}
               <Button 
-                className={`w-full ${
+                className={`w-full transition-all duration-300 group-hover:scale-105 ${
                   plan.popular 
                     ? 'button-gradient' 
                     : 'border-border/50 hover:bg-card/50'
@@ -164,6 +172,10 @@ const PricingSection = () => {
                  plan.price === "Custom" ? "Contact Sales" : 
                  "Start Free Trial"}
               </Button>
+              
+              {/* Hover effects */}
+              <div className={`absolute inset-0 rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${plan.color.replace('text-', 'bg-')}`}></div>
+              <div className="absolute -inset-1 rounded-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-r from-primary/20 to-accent/20 blur-sm"></div>
             </Card>
           ))}
         </div>

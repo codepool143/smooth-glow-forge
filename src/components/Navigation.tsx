@@ -13,6 +13,16 @@ const Navigation = () => {
     { label: "FAQ", href: "#faq" }
   ];
 
+  const smoothScrollTo = (elementId: string) => {
+    const element = document.getElementById(elementId.replace('#', ''));
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,13 +40,14 @@ const Navigation = () => {
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.label}
-                href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => smoothScrollTo(item.href)}
+                className="text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-105 relative group"
               >
                 {item.label}
-              </a>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full"></span>
+              </button>
             ))}
           </div>
 
@@ -68,14 +79,16 @@ const Navigation = () => {
           <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-lg">
             <div className="px-4 py-6 space-y-4">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.label}
-                  href={item.href}
-                  className="block text-muted-foreground hover:text-foreground transition-colors py-2"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    smoothScrollTo(item.href);
+                    setIsMenuOpen(false);
+                  }}
+                  className="block text-muted-foreground hover:text-foreground transition-colors py-2 w-full text-left"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
               <div className="pt-4 space-y-3">
                 <Button variant="outline" className="w-full border-border/50 hover:bg-card/50">

@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, ArrowRight, Lightbulb, Target, Rocket, TrendingUp, Users, Award } from "lucide-react";
+import { CheckCircle, ArrowDown, Lightbulb, Target, Rocket, TrendingUp, Users, Award, Car } from "lucide-react";
 
 const journeySteps = [
   {
@@ -67,8 +67,15 @@ const journeySteps = [
 
 const StartupJourney = () => {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-card/20">
-      <div className="max-w-7xl mx-auto">
+    <section id="journey" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-card/20 relative overflow-hidden">
+      <div className="max-w-5xl mx-auto relative">
+        {/* Traveling vehicle */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-accent-cyan to-accent-green opacity-30 transform -translate-x-1/2 z-0"></div>
+        <div className="absolute left-1/2 transform -translate-x-1/2 animate-drive z-10">
+          <div className="w-12 h-8 bg-gradient-primary rounded-lg flex items-center justify-center shadow-lg">
+            <Car className="w-6 h-4 text-white" />
+          </div>
+        </div>
         {/* Section header */}
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 px-4 py-2 text-sm border-primary/30">
@@ -83,58 +90,69 @@ const StartupJourney = () => {
           </p>
         </div>
 
-        {/* Journey timeline */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        {/* Vertical Journey timeline */}
+        <div className="space-y-16 relative z-20">
           {journeySteps.map((step, index) => (
-            <Card 
+            <div 
               key={step.phase}
-              className={`card-gradient border-border/50 p-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl animate-fade-up group relative overflow-hidden`}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className={`flex items-center gap-8 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} relative`}
             >
-              {/* Phase number */}
-              <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-sm font-bold text-primary">
-                {index + 1}
+              {/* Timeline node */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 z-30">
+                <div className={`w-16 h-16 ${step.bgColor} rounded-full flex items-center justify-center border-4 border-background shadow-xl group hover:scale-125 transition-all duration-500`}>
+                  <step.icon className={`w-8 h-8 ${step.color} group-hover:scale-110 transition-all duration-300`} />
+                </div>
+                {/* Phase number */}
+                <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center animate-pulse">
+                  {index + 1}
+                </div>
               </div>
 
-              {/* Icon */}
-              <div className={`w-16 h-16 ${step.bgColor} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <step.icon className={`w-8 h-8 ${step.color}`} />
-              </div>
-
-              {/* Content */}
-              <div className="mb-4">
-                <Badge variant="secondary" className="mb-2 text-xs">
+              {/* Content card */}
+              <Card 
+                className={`card-gradient border-border/50 p-8 hover-lift animate-slide-in-${index % 2 === 0 ? 'left' : 'right'} group relative overflow-hidden w-full max-w-md ${index % 2 === 0 ? 'ml-auto mr-8' : 'mr-auto ml-8'}`}
+                style={{ animationDelay: `${index * 0.3}s` }}
+              >
+                {/* Duration badge */}
+                <Badge variant="secondary" className="mb-4 text-xs animate-zoom-in" style={{ animationDelay: `${index * 0.3 + 0.1}s` }}>
                   {step.duration}
                 </Badge>
-                <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
+                
+                {/* Title and description */}
+                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{step.title}</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed group-hover:text-foreground transition-colors">
                   {step.description}
                 </p>
-              </div>
 
-              {/* Tasks checklist */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-foreground/80 mb-3">Key Activities:</h4>
-                {step.tasks.map((task, taskIndex) => (
-                  <div key={taskIndex} className="flex items-center gap-2">
-                    <CheckCircle className={`w-4 h-4 ${step.color}`} />
-                    <span className="text-sm text-muted-foreground">{task}</span>
-                  </div>
-                ))}
-              </div>
+                {/* Tasks checklist */}
+                <div className="space-y-3">
+                  <h4 className="text-sm font-semibold text-foreground/80 mb-4">Key Activities:</h4>
+                  {step.tasks.map((task, taskIndex) => (
+                    <div 
+                      key={taskIndex} 
+                      className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0"
+                      style={{ transitionDelay: `${taskIndex * 0.1}s` }}
+                    >
+                      <CheckCircle className={`w-5 h-5 ${step.color} animate-pulse`} />
+                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{task}</span>
+                    </div>
+                  ))}
+                </div>
 
-              {/* Arrow connector (hidden on last item) */}
+                {/* Hover glow effect */}
+                <div className={`absolute inset-0 rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${step.color.replace('text-', 'bg-')}`}></div>
+                <div className="absolute -inset-1 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-gradient-to-r from-primary/20 to-accent/20 blur-sm"></div>
+              </Card>
+
+              {/* Connecting arrow (not on last item) */}
               {index < journeySteps.length - 1 && (
-                <div className="hidden xl:block absolute -right-4 top-1/2 transform -translate-y-1/2 z-10">
-                  <div className="w-8 h-8 bg-card rounded-full flex items-center justify-center border border-border/50">
-                    <ArrowRight className="w-4 h-4 text-primary" />
+                <div className="absolute left-1/2 -bottom-8 transform -translate-x-1/2 z-20">
+                  <div className="w-8 h-8 bg-card rounded-full flex items-center justify-center border-2 border-primary/30 animate-bounce">
+                    <ArrowDown className="w-4 h-4 text-primary" />
                   </div>
                 </div>
               )}
-
-              {/* Hover glow effect */}
-              <div className={`absolute inset-0 rounded-lg opacity-0 group-hover:opacity-5 transition-opacity duration-300 ${step.color.replace('text-', 'bg-')}`}></div>
-            </Card>
+            </div>
           ))}
         </div>
 

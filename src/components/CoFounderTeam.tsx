@@ -47,14 +47,14 @@ const coFounders = [
 
 const CoFounderTeam = () => {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8">
+    <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 relative particle-bg">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 px-4 py-2 text-sm border-primary/30">
             Your AI Dream Team
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-shimmer">
             Meet Your AI Co-Founder Team
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -68,12 +68,13 @@ const CoFounderTeam = () => {
           {coFounders.map((coFounder, index) => (
             <Card 
               key={coFounder.id} 
-              className={`card-gradient border-border/50 p-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl animate-scale-in group cursor-pointer`}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className={`card-gradient border-border/50 p-6 hover-lift hover-tilt animate-bounce-in group cursor-pointer relative overflow-hidden`}
+              style={{ animationDelay: `${index * 0.2}s` }}
             >
               {/* Icon */}
-              <div className={`w-16 h-16 ${coFounder.bgColor} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <coFounder.icon className={`w-8 h-8 ${coFounder.color}`} />
+              <div className={`w-16 h-16 ${coFounder.bgColor} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 relative overflow-hidden`}>
+                <coFounder.icon className={`w-8 h-8 ${coFounder.color} group-hover:scale-110 transition-all duration-300`} />
+                <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 ${coFounder.color.replace('text-', 'bg-')}`}></div>
               </div>
 
               {/* Title */}
@@ -90,15 +91,24 @@ const CoFounderTeam = () => {
               {/* Features */}
               <div className="space-y-2">
                 {coFounder.features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-center gap-2">
-                    <div className={`w-1.5 h-1.5 rounded-full ${coFounder.color.replace('text-', 'bg-')}`}></div>
-                    <span className="text-sm text-muted-foreground">{feature}</span>
+                  <div 
+                    key={featureIndex} 
+                    className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0"
+                    style={{ transitionDelay: `${featureIndex * 0.1}s` }}
+                  >
+                    <div className={`w-1.5 h-1.5 rounded-full ${coFounder.color.replace('text-', 'bg-')} animate-pulse`}></div>
+                    <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{feature}</span>
                   </div>
                 ))}
               </div>
 
-              {/* Hover effect */}
+              {/* Hover effects */}
               <div className={`absolute inset-0 rounded-lg opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${coFounder.color.replace('text-', 'bg-')}`}></div>
+              <div className="absolute -inset-1 rounded-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300 bg-gradient-to-r from-primary/20 to-accent/20 blur-sm"></div>
+              
+              {/* Floating particles */}
+              <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-primary/40 opacity-0 group-hover:opacity-100 transition-all duration-1000 group-hover:animate-bounce"></div>
+              <div className="absolute bottom-6 left-4 w-1 h-1 rounded-full bg-accent-cyan/40 opacity-0 group-hover:opacity-100 transition-all duration-1000 delay-200 group-hover:animate-pulse"></div>
             </Card>
           ))}
         </div>
