@@ -1,18 +1,12 @@
-# Welcome to your Lovable project
+# Welcome to Foundora
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/3c3d5b75-2e2e-41aa-a150-d73bf3e1a67c
+**URL**: https://foundora.co
 
 ## How can I edit this code?
 
 There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/3c3d5b75-2e2e-41aa-a150-d73bf3e1a67c) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
@@ -66,8 +60,4 @@ Simply open [Lovable](https://lovable.dev/projects/3c3d5b75-2e2e-41aa-a150-d73bf
 
 ## Can I connect a custom domain to my Lovable project?
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project can be deployed to any hosting platform that supports static sites or Node.js applications.

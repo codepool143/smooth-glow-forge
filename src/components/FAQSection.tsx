@@ -38,34 +38,34 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-card/20 to-background">
+    <section id="faq" className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-card/20 to-background">
       <div className="max-w-4xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <Badge variant="outline" className="mb-4 px-4 py-2 text-sm border-primary/30">
             Got Questions?
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
             Everything you need to know about Foundora and how it can accelerate your startup journey.
           </p>
         </div>
 
         {/* FAQ Accordion */}
-        <Accordion type="single" collapsible className="space-y-4">
+        <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="card-gradient border border-border/50 rounded-lg px-6 data-[state=open]:shadow-lg hover-lift transition-all duration-300 animate-slide-in-left group"
+              className="card-gradient border border-border/50 rounded-lg px-4 sm:px-6 data-[state=open]:shadow-lg hover-lift transition-all duration-300 animate-slide-in-left group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <AccordionTrigger className="text-left text-lg font-semibold hover:text-primary transition-all duration-300 py-6 hover:no-underline group-hover:translate-x-2">
+              <AccordionTrigger className="text-left text-base sm:text-lg font-semibold hover:text-primary transition-all duration-300 py-4 sm:py-6 hover:no-underline group-hover:translate-x-2">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
+              <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed pb-4 sm:pb-6">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -73,16 +73,16 @@ const FAQSection = () => {
         </Accordion>
 
         {/* Additional help */}
-        <div className="text-center mt-12 p-8 card-gradient rounded-2xl border border-border/50">
-          <h3 className="text-xl font-bold mb-4">Still have questions?</h3>
-          <p className="text-muted-foreground mb-6">
+        <div className="text-center mt-8 sm:mt-12 p-4 sm:p-6 lg:p-8 card-gradient rounded-2xl border border-border/50">
+          <h3 className="text-lg sm:text-xl font-bold mb-4">Still have questions?</h3>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
             Our team is here to help you succeed. Get in touch and we'll answer any questions you have.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Badge variant="outline" className="px-6 py-3 text-primary border-primary/30 hover:bg-primary/10 cursor-pointer transition-colors">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <Badge variant="outline" className="px-4 sm:px-6 py-2 sm:py-3 text-primary border-primary/30 hover:bg-primary/10 cursor-pointer transition-colors">
               Contact Support
             </Badge>
-            <Badge variant="outline" className="px-6 py-3 border-border/50 hover:bg-card/50 cursor-pointer transition-colors">
+            <Badge variant="outline" className="px-4 sm:px-6 py-2 sm:py-3 border-border/50 hover:bg-card/50 cursor-pointer transition-colors">
               Schedule a Demo
             </Badge>
           </div>
